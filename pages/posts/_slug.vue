@@ -1,12 +1,8 @@
 <template>
     <v-container fluid>
+        <breadcrumbs :add-items="addBreads" />
+
         <template v-if="currentPost">
-            <!-- パンくずリスト -->
-            <v-breadcrumbs :items="breadcrumbs">
-                <template #divider>
-                    <v-icon>mdi-chevron-right</v-icon>
-                </template>
-            </v-breadcrumbs>
             {{ currentPost.fields.title }}
             <v-img
                 :src="setEyeCatch(currentPost).url"
@@ -24,41 +20,33 @@
         <template v-else>
             お探しの記事は見つかりませんでした
         </template>
-
-        <div>
-            <v-btn
-                outlined
-                color="primary"
-                to="/"
-            >
-                <v-icon size="16">
-                <!-- fas fa-angel-double-left -->
-                </v-icon>
-                <span class="ml-1">ホームへ戻る</span>
-            </v-btn>
-        </div>
     </v-container>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex';
 
 export default {
     computed: {
-        ...mapGetters(["setEyeCatch"]),
+        ...mapGetters(['setEyeCatch', 'linkTo']),
 
-        breadcrumbs() {
-            const category = this.currentPost.fields.category
+        addBreads() {
             return [
-                { text: 'ホーム', to: '/' },
-                { text: category.fields.name, to: '#' }
+                {
+                    icon: 'mdi-folder-outline',
+                    text: this.category.fields.name,
+                    to: this.linkTo('categories', this.category)
+                }
             ]
         }
     },
     async asyncData({ payload, store, params, error }){
         const currentPost = payload || await store.state.posts.find(post => post.fields.slug === params.slug)
         if (currentPost) {
-            return { currentPost }
+            return {
+                currentPost,
+                category: currentPost.fields.category
+            }
         } else {
             return error({ statusCode: 400 })
         }

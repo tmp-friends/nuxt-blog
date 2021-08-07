@@ -27,6 +27,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    'plugins/components',
     'plugins/contentful'
   ],
 
@@ -49,7 +50,6 @@ export default {
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
-      dark: true,
       themes: {
         dark: {
           primary: colors.blue.darken2,
@@ -88,11 +88,17 @@ export default {
       return Promise.all([
         client.getEntries({
           content_type: process.env.CTF_BLOG_POST_TYPE_ID
+        }),
+        client.getEntries({
+          content_type: 'category'
         })
-      ]).then(([ posts ]) => {
+      ]).then(([ posts, categories ]) => {
         return [
           ...posts.items.map(post => {
             return { route: `posts/${post.fields.slug}`, payload: post }
+          }),
+          ...categories.items.map((category) => {
+            return { route: `categories/${category.fields.slug}`, payload: category }
           })
         ]
       })
