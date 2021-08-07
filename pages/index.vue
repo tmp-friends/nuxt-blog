@@ -46,7 +46,7 @@
 
                             <v-list-item three-line style="min-height: unset">
                                 <v-list-item-subtitle>
-                                {{ post.fields.body }}
+                                    <div v-html="$md.render(post.fields.body)"></div>
                                 </v-list-item-subtitle>
                             </v-list-item>
 

@@ -14,7 +14,7 @@
             >
             </v-img>
             {{ currentPost.fields.publishDate }}<br />
-            {{ currentPost.fields.body }}
+            <div v-html="$md.render(currentPost.fields.body)"></div>
         </template>
 
         <template v-else>

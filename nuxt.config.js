@@ -43,7 +43,8 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/axios',
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    '@nuxtjs/markdownit'
   ],
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
@@ -77,6 +78,11 @@ export default {
   },
 
   axios: {},
+
+  markdownit: {
+    injected: true,
+    breaks: true
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
