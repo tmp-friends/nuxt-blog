@@ -19,10 +19,26 @@
                                 max-height="200"
                                 class="white--text"
                             >
-                                <v-card-title class="align-end fill-height font-weight-bold">
-                                {{ post.fields.title }}
-                                </v-card-title>
+                                <v-card-text>
+                                    <v-chip
+                                        small
+                                        dark
+                                        :color="categoryColor(post.fields.category)"
+                                        to="#"
+                                        class="font-weight-bold"
+                                    >
+                                        {{ post.fields.category.fields.name }}
+                                    </v-chip>
+                                </v-card-text>
                             </v-img>
+
+                            <v-card-title>
+                                <nuxt-link
+                                    :to="linkTo('posts', post)"
+                                >
+                                    {{ post.fields.title }}
+                                </nuxt-link>
+                            </v-card-title>
 
                             <v-card-text>
                                 {{ post.fields.publishDate }}
@@ -36,7 +52,7 @@
 
                             <v-card-actions>
                                 <v-spacer />
-                                <v-btn text color="primary" :to="linkTo(post)">
+                                <v-btn text color="primary" :to="linkTo('posts', post)">
                                 この記事をみる
                                 </v-btn>
                             </v-card-actions>
@@ -55,7 +71,17 @@ import { mapState, mapGetters } from 'vuex';
 export default {
     computed: {
         ...mapState(['posts']),
-        ...mapGetters(['setEyeCatch', 'draftChip', 'linkTo'])
+        ...mapGetters(['setEyeCatch', 'draftChip', 'linkTo']),
+        
+        categoryColor() {
+            return (category) => {
+                switch (category.fields.name) {
+                    case 'Nuxt.js': return '#236244'
+                    case 'git': return 'grey darken-3'
+                    default: return '#fff'
+                }
+            }
+        }
     },
 };
 </script>
