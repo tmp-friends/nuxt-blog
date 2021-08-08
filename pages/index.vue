@@ -50,6 +50,31 @@
                                 </v-list-item-subtitle>
                             </v-list-item>
 
+                            <v-card-text
+                                style="height: 64px;"
+                            >
+                                <template v-if="post.fields.tags">
+                                    <v-chip
+                                        v-for="(tag) in post.fields.tags"
+                                        :key="tag.sys.id"
+                                        to="#"
+                                        small
+                                        label
+                                        outlined
+                                        class="ma-1"
+                                    >
+                                        <v-icon
+                                            left
+                                            size="18"
+                                            color="grey"
+                                        >
+                                            mdi-label
+                                        </v-icon>
+                                        {{ tag.fields.name }}
+                                    </v-chip>
+                                </template>
+                            </v-card-text>
+                            
                             <v-card-actions>
                                 <v-spacer />
                                 <v-btn text color="primary" :to="linkTo('posts', post)">
