@@ -1,9 +1,12 @@
 <template>
 	<v-app>
+		<my-header />
 		<nuxt />
 	</v-app>
 </template>
 
 <script>
-export default {}
+import myHeader from '../components/shared/myHeader.vue'
+export default {
+  components: { myHeader },}
 </script>
