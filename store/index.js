@@ -3,7 +3,8 @@ import client from '~/plugins/contentful'
 
 export const state = () => ({
     posts: [],
-    categories: []
+    categories: [],
+    tags: []
 })
 
 export const getters = {
@@ -22,19 +23,34 @@ export const getters = {
             if (category.sys.id === catId) posts.push(state.posts[i])
         }
         return posts
+    },
+    associatePosts: state => (currentTag) => {
+        const posts = []
+        for (let i = 0; i < state.posts.length; i++) {
+            const post = state.posts[i]
+            if (post.fields.tags) {
+                const tag = post.fields.tags.find(tag => tag.sys.id === currentTag.sys.id)
+
+                if (tag) posts.push(post)
+            }
+        }
+        return posts
     }
 }
 
 export const mutations = {
     setPosts(state, payload) {
         state.posts = payload
-        // debug
-        console.log(state.categories)
     },
-    setCategories(state, payload) {
-        state.categories = payload
-        // debug
-        console.log(state.categories)
+    setLinks(state, entries) {
+        state.tags = []
+        state.categories = []
+        for (let i = 0; i < entries.length; i++) {
+            const entry = entries[i]
+            if (entry.sys.contentType.sys.id === 'tag') state.tags.push(entry)
+            else if (entry.sys.contentType.sys.id === 'category') state.categories.push(entry)
+        }
+        state.categories.sort((a, b) => a.fields.sort - b.fields.sort)
     }
 }
 
@@ -44,17 +60,11 @@ export const actions = {
     async getPosts({ commit }) {
         await client.getEntries({
             content_type: process.env.CTF_BLOG_POST_TYPE_ID,
-            order: '-fields.publishDate'
-        }).then(res =>
+            order: '-fields.publishDate',
+            include: 1
+        }).then((res) => {
+            commit('setLinks', res.includes.Entry),
             commit('setPosts', res.items)
-        ).catch(console.error)
-    },
-    async getCategories({ commit }) {
-        await client.getEntries({
-            content_type: 'category',
-            order: 'fields.sort'
-        }).then(res =>
-            commit('setCategories',res.items)
-        ).catch(console.error)
+        }).catch(console.error)
     }
 }

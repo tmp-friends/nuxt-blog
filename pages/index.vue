@@ -57,7 +57,7 @@
                                     <v-chip
                                         v-for="(tag) in post.fields.tags"
                                         :key="tag.sys.id"
-                                        to="#"
+                                        :to="linkTo('tags', tag)"
                                         small
                                         label
                                         outlined
@@ -74,7 +74,7 @@
                                     </v-chip>
                                 </template>
                             </v-card-text>
-                            
+
                             <v-card-actions>
                                 <v-spacer />
                                 <v-btn text color="primary" :to="linkTo('posts', post)">

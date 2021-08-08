@@ -97,6 +97,9 @@ export default {
         }),
         client.getEntries({
           content_type: 'category'
+        }),
+        client.getEntries({
+          content_type: 'tag'
         })
       ]).then(([ posts, categories ]) => {
         return [
@@ -105,6 +108,9 @@ export default {
           }),
           ...categories.items.map((category) => {
             return { route: `categories/${category.fields.slug}`, payload: category }
+          }),
+          ...categories.items.map((tag) => {
+            return { route: `tags/${tag.fields.slug}`, payload: tag }
           })
         ]
       })
