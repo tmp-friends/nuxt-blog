@@ -11,7 +11,11 @@
                         lg="4"
                         xl="3"
                     >
-                        <v-card max-width="400" class="mx-auto">
+                        <v-card
+                            max-width="400"
+                            class="mx-auto"
+                            :to="linkTo('posts', post)"
+                        >
                             <v-img
                                 :src="setEyeCatch(post).url"
                                 :alt="setEyeCatch(post).title"
@@ -33,16 +37,8 @@
                             </v-img>
 
                             <v-card-title>
-                                <nuxt-link
-                                    :to="linkTo('posts', post)"
-                                >
-                                    {{ post.fields.title }}
-                                </nuxt-link>
+                                {{ post.fields.title }}
                             </v-card-title>
-
-                            <v-card-text>
-                                {{ post.fields.publishDate }}
-                            </v-card-text>
 
                             <v-list-item three-line style="min-height: unset">
                                 <v-list-item-subtitle>
@@ -72,13 +68,6 @@
                                     </v-chip>
                                 </template>
                             </v-card-text>
-
-                            <v-card-actions>
-                                <v-spacer />
-                                <v-btn text color="primary" :to="linkTo('posts', post)">
-                                この記事をみる
-                                </v-btn>
-                            </v-card-actions>
                         </v-card>
                     </v-col>
                 </v-row>
@@ -94,7 +83,7 @@ import { mapState, mapGetters } from 'vuex';
 export default {
     computed: {
         ...mapState(['posts']),
-        ...mapGetters(['setEyeCatch', 'draftChip', 'linkTo']),
+        ...mapGetters(['setEyeCatch', 'linkTo']),
         
         categoryColor() {
             return (category) => {
@@ -108,3 +97,13 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+.v-card__title, .v-card__text {
+    padding: 8px 16px;
+}
+
+.v-list-item__subtitle {
+    font-size: 0.75rem;
+}
+</style>

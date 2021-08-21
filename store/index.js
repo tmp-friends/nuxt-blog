@@ -8,7 +8,6 @@ export const state = () => ({
 })
 
 export const getters = {
-    // EyeCatch画像がない場合の処理
     setEyeCatch: () => (post) => {
         if (!!post.fields.image && !!post.fields.image.fields) return { url: `https:${post.fields.image.fields.file.url}`, title: post.fields.image.fields.title }
         else return { url: defaultEyeCatch, title: 'defaultImage' }
