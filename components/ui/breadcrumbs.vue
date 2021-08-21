@@ -48,3 +48,9 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.v-application ul, .v-application ol {
+    padding: 12px;
+}
+</style>

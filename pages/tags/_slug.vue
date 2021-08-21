@@ -1,13 +1,15 @@
 <template>
     <div>
         <breadcrumbs :add-items="addBreads" />
-        <h1>{{ tag.fields.name }}</h1>
-        <div
-            v-for="(post, i) in relatedPosts"
-            :key="i"
-        >
-            {{ post.fields.title }}
-        </div>
+        <v-container>
+            <h1>{{ tag.fields.name }}</h1>
+            <div
+                v-for="(post, i) in relatedPosts"
+                :key="i"
+            >
+                {{ post.fields.title }}
+            </div>
+        </v-container>
     </div>
 </template>
 

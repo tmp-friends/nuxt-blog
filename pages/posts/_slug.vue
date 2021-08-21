@@ -1,26 +1,28 @@
 <template>
-    <v-container fluid>
+    <div>
         <breadcrumbs :add-items="addBreads" />
-
-        <template v-if="currentPost">
-            {{ currentPost.fields.title }}
-            <v-img
-                :src="setEyeCatch(currentPost).url"
-                :alt="setEyeCatch(currentPost).title"
-                :aspect-ratio="16 / 9"
-                width="700"
-                height="400"
-                class="mx-auto"
-            >
-            </v-img>
-            {{ currentPost.fields.publishDate }}<br />
-            <div v-html="$md.render(currentPost.fields.body)"></div>
-        </template>
-
-        <template v-else>
-            お探しの記事は見つかりませんでした
-        </template>
-    </v-container>
+        <v-container>
+            <div class="wrapper">
+                <template v-if="currentPost">
+                    {{ currentPost.fields.title }}
+                    <v-img
+                        :src="setEyeCatch(currentPost).url"
+                        :alt="setEyeCatch(currentPost).title"
+                        :aspect-ratio="16 / 9"
+                        max-width="600"
+                        class="mx-auto"
+                    >
+                    </v-img>
+                    {{ currentPost.fields.publishDate }}<br />
+                    <div v-html="$md.render(currentPost.fields.body)"></div>
+                </template>
+            
+                <template v-else>
+                    お探しの記事は見つかりませんでした
+                </template>
+            </div>
+        </v-container>
+    </div>
 </template>
 
 <script>
@@ -53,3 +55,10 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+.wrapper {
+    max-width: 600px;
+    margin: 0 auto;
+}
+</style>
