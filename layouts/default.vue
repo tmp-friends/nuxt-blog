@@ -1,12 +1,15 @@
 <template>
 	<v-app>
 		<my-header />
-		<nuxt />
+		<v-main>
+			<nuxt />
+		</v-main>
 	</v-app>
 </template>
 
 <script>
 import myHeader from '../components/shared/myHeader.vue'
 export default {
-  components: { myHeader },}
+	components: { myHeader }
+}
 </script>

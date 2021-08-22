@@ -18,12 +18,16 @@
             </v-breadcrumbs-item>
         </template>
         <template #divider>
-            <v-icon>mdi-chevron-right</v-icon>
+            <v-icon>{{ chevronRightIcon }}</v-icon>
         </template>
     </v-breadcrumbs>
 </template>
 
 <script>
+import {
+    mdiHome,mdiChevronRight
+} from '@mdi/js'
+
 export default {
     props: {
         addItems: {
@@ -33,8 +37,9 @@ export default {
     },
     data: () => ({
         items: [
-            { icon: 'mdi-home', text: 'ホーム', to: '/' }
-        ]
+            { icon: mdiHome, text: 'ホーム', to: '/' }
+        ],
+        chevronRightIcon: mdiChevronRight,
     }),
     computed: {
         breadcrumbs() {

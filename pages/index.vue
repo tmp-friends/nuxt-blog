@@ -62,7 +62,7 @@
                                             size="18"
                                             color="grey"
                                         >
-                                            mdi-label
+                                            {{ tagLabelIcon }}
                                         </v-icon>
                                         {{ tag.fields.name }}
                                     </v-chip>
@@ -78,9 +78,14 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mdiLabel } from '@mdi/js'
+
+import { mapState, mapGetters } from 'vuex'
 
 export default {
+    data: () => ({
+        tagLabelIcon: mdiLabel
+    }),
     computed: {
         ...mapState(['posts']),
         ...mapGetters(['setEyeCatch', 'linkTo']),

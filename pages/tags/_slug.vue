@@ -14,10 +14,12 @@
 </template>
 
 <script>
+import { mdiTagOutline } from '@mdi/js'
+
 export default {
     computed: {
         addBreads() {
-            return [{ icon: 'mdi-tag-outline', text: 'タグ一覧', to: '/tags' }]
+            return [{ icon: mdiTagOutline, text: 'タグ一覧', to: '/tags' }]
         }
     },
     asyncData({ payload, params, error, store, env }) {

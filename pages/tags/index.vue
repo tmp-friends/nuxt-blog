@@ -14,7 +14,7 @@
                         <v-card-title>
                             <v-text-field
                                 v-model="search"
-                                append-icon="mdi-magnify"
+                                :append-icon=searchIcon
                                 label="Search"
                                 single-line
                                 hide-details
@@ -34,7 +34,7 @@
                         >
                             <template v-slot:[`item.fields.name`]="{ item }">
                                 <v-icon size="18">
-                                    mdi-tag-outline
+                                    {{ tagOutlineIcon }}
                                 </v-icon>
 
                                 <nuxt-link
@@ -51,8 +51,8 @@
                                 :length="pageCount"
                                 :total-visible="totalVisible"
                                 circle
-                                prev-icon="mdi-menu-left"
-                                next-icon="mdi-menu-right"
+                                :prev-icon=menuLeftIcon
+                                :next-icon=menuRightIcon
                             />
                         </div>
                     </v-card>
@@ -63,10 +63,19 @@
 </template>
 
 <script>
+import {
+    mdiMagnify, mdiTagOutline, mdiMenuLeft, mdiMenuRight
+} from '@mdi/js'
+
 import { mapState, mapGetters } from 'vuex'
 
 export default {
     data: () => ({
+        searchIcon: mdiMagnify,
+        tagOutlineIcon: mdiTagOutline,
+        menuLeftIcon: mdiMenuLeft,
+        menuRightIcon: mdiMenuRight,
+        
         search: '',
         sortBy: 'fields.postcount',
         itemsPerPage: 15,
