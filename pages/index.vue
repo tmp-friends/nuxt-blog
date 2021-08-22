@@ -11,64 +11,72 @@
                         lg="4"
                         xl="3"
                     >
-                        <v-card
-                            max-width="400"
-                            class="mx-auto"
-                            :to="linkTo('posts', post)"
+                        <v-hover
+                            v-slot="{ hover }"
                         >
-                            <v-img
-                                :src="setEyeCatch(post).url"
-                                :alt="setEyeCatch(post).title"
-                                :aspect-ratio="16 / 9"
-                                max-height="200"
-                                class="white--text"
+                            <v-card
+                                :elevation="hover ? 16:2"
+                                :class="{ 'on-hover': hover }"
+                                outlined
+                                shaped
+                                max-width="400"
+                                class="mx-auto"
+                                :to="linkTo('posts', post)"
                             >
-                                <v-card-text>
-                                    <v-chip
-                                        small
-                                        dark
-                                        :color="categoryColor(post.fields.category)"
-                                        :to="linkTo('categories', post.fields.category)"
-                                        class="font-weight-bold"
-                                    >
-                                        {{ post.fields.category.fields.name }}
-                                    </v-chip>
-                                </v-card-text>
-                            </v-img>
-
-                            <v-card-title>
-                                {{ post.fields.title }}
-                            </v-card-title>
-
-                            <v-list-item three-line style="min-height: unset">
-                                <v-list-item-subtitle>
-                                    <div v-html="$md.render(post.fields.body)"></div>
-                                </v-list-item-subtitle>
-                            </v-list-item>
-
-                            <v-card-text>
-                                <template v-if="post.fields.tags">
-                                    <v-chip
-                                        v-for="(tag) in post.fields.tags"
-                                        :key="tag.sys.id"
-                                        :to="linkTo('tags', tag)"
-                                        small
-                                        label
-                                        outlined
-                                        class="ma-1"
-                                    >
-                                        <v-icon
-                                            left
-                                            size="18"
-                                            color="grey"
+                                <v-img
+                                    :src="setEyeCatch(post).url"
+                                    :alt="setEyeCatch(post).title"
+                                    :aspect-ratio="16 / 9"
+                                    max-height="200"
+                                    class="white--text"
+                                >
+                                    <v-card-text>
+                                        <v-chip
+                                            small
+                                            dark
+                                            :color="categoryColor(post.fields.category)"
+                                            :to="linkTo('categories', post.fields.category)"
+                                            class="font-weight-bold"
                                         >
-                                            {{ tagLabelIcon }}
-                                        </v-icon>
-                                        {{ tag.fields.name }}
-                                    </v-chip>
-                                </template>
-                            </v-card-text>
-                        </v-card>
+                                            {{ post.fields.category.fields.name }}
+                                        </v-chip>
+                                    </v-card-text>
+                                </v-img>
+
+                                <v-card-title>
+                                    {{ post.fields.title }}
+                                </v-card-title>
+
+                                <v-list-item three-line style="min-height: unset">
+                                    <v-list-item-subtitle>
+                                        <div v-html="$md.render(post.fields.body)"></div>
+                                    </v-list-item-subtitle>
+                                </v-list-item>
+
+                                <v-card-text>
+                                    <template v-if="post.fields.tags">
+                                        <v-chip
+                                            v-for="(tag) in post.fields.tags"
+                                            :key="tag.sys.id"
+                                            :to="linkTo('tags', tag)"
+                                            small
+                                            label
+                                            outlined
+                                            class="ma-1"
+                                        >
+                                            <v-icon
+                                                left
+                                                size="18"
+                                                color="grey"
+                                            >
+                                                {{ tagLabelIcon }}
+                                            </v-icon>
+                                            {{ tag.fields.name }}
+                                        </v-chip>
+                                    </template>
+                                </v-card-text>
+                            </v-card>
+                        </v-hover>
                     </v-col>
                 </v-row>
                 <div v-else class="text-center">投稿された記事はありません</div>
