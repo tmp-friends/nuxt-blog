@@ -14,12 +14,17 @@
                     >
                     </v-img>
                     {{ currentPost.fields.publishDate }}<br />
-                    <div v-html="$md.render(currentPost.fields.body)"></div>
+                    <div class="wrapper_content" v-html="$md.render(currentPost.fields.body)"></div>
                 </template>
             
                 <template v-else>
                     お探しの記事は見つかりませんでした
                 </template>
+
+                <client-only>
+                    <share-btns :page-title="currentPost.fields.title" />
+                    <follow-btns />
+                </client-only>
             </div>
         </v-container>
     </div>
@@ -27,8 +32,15 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import Prism from '~/plugins/prism';
+
+import shareBtns from '~/components/ui/shareBtns'
+import followBtns from '~/components/ui/followBtns'
 
 export default {
+    components: {
+        shareBtns, followBtns
+    },
     computed: {
         ...mapGetters(['setEyeCatch', 'linkTo']),
 
@@ -41,6 +53,9 @@ export default {
                 }
             ]
         }
+    },
+    mounted() {
+        Prism.highlightAll()
     },
     async asyncData({ payload, store, params, error }){
         const currentPost = payload || await store.state.posts.find(post => post.fields.slug === params.slug)
@@ -56,9 +71,30 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+$h1-font-size: 28px;
+$h2-font-size: 20px;
+
 .wrapper {
     max-width: 600px;
     margin: 0 auto;
+}
+
+/* v-htmlによってレンダリングされるhtmlにはスコープ付きcssが使えない */
+::v-deep .wrapper_content {
+    img {
+        width: 100%;
+    }
+    h1 {
+        font-size: $h1-font-size;
+        border-bottom: 1px solid #b1b1b1;
+        margin: 10px 0;
+    }
+    h2 {
+        font-size: $h2-font-size;
+    }
+    h3 {
+        font-size: $font-size-root;
+    }
 }
 </style>

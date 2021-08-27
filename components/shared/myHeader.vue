@@ -62,7 +62,7 @@ export default {
     components: { searchForm },
     data: () => ({
         drawer: null,
-        siteName: 'KomeLog',
+        siteName: process.env.SITE_NAME,
         items: [
             { title: 'Index', icon: mdiViewDashboard, link: '/' },
         ],
