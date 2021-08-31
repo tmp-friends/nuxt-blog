@@ -2,7 +2,8 @@
     <v-container fluid>
         <v-row justify="center">
             <v-col cols="12" sm="11" md="10" xl="8">
-                <v-row v-if="posts.length">
+                <v-row>
+                    <!-- 【TODO】以下の表示部分(post)をTabのmodelに設定すればいける？ -->
                     <v-col
                         v-for=" (post, i) in posts"
                         :key="i"
@@ -44,16 +45,14 @@
                                 </v-img>
 
                                 <v-card-title>
-                                    {{ post.fields.title }}
+                                    <div class="v-card__title_text">
+                                        {{ post.fields.title }}
+                                    </div>
                                 </v-card-title>
+                                
+                                <!-- 【TODO】タグを一行表示にする -->
 
-                                <v-list-item three-line style="min-height: unset">
-                                    <v-list-item-subtitle>
-                                        <div v-html="$md.render(post.fields.body)"></div>
-                                    </v-list-item-subtitle>
-                                </v-list-item>
-
-                                <v-card-text>
+                                <!-- <v-card-text>
                                     <template v-if="post.fields.tags">
                                         <v-chip
                                             v-for="(tag) in post.fields.tags"
@@ -75,11 +74,16 @@
                                         </v-chip>
                                     </template>
                                 </v-card-text>
+                                 -->
+                                <v-list-item three-line style="min-height: unset">
+                                    <v-list-item-subtitle>
+                                        <div v-html="$md.render(post.fields.body)"></div>
+                                    </v-list-item-subtitle>
+                                </v-list-item>
                             </v-card>
                         </v-hover>
                     </v-col>
                 </v-row>
-                <div v-else class="text-center">投稿された記事はありません</div>
             </v-col>
         </v-row>
     </v-container>
@@ -97,7 +101,6 @@ export default {
     computed: {
         ...mapState(['posts']),
         ...mapGetters(['setEyeCatch', 'linkTo']),
-        
         categoryColor() {
             return (category) => {
                 switch (category.fields.name) {
@@ -111,12 +114,27 @@ export default {
 };
 </script>
 
-<style scoped>
-.v-card__title, .v-card__text {
+<style lang="scss" scoped>
+.v-card__text, .v-card__title {
     padding: 8px 16px;
+    overflow: hidden;
 }
 
-.v-list-item__subtitle {
-    font-size: 0.75rem;
+.v-card__title_text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.v-list-item {
+    padding: 0 16px 20px;
+
+    .v-list-item__subtitle {
+        font-size: 12px;
+
+        ::v-deep h2 {
+            font-size: 14px;
+        }
+    }
 }
 </style>

@@ -15,6 +15,7 @@ export const getters = {
     linkTo: () => (name, obj) => {
         return { name: `${name}-slug`, params: { slug: obj.fields.slug } }
     },
+    // filterでも同じことができるが、速度面からfor文で処理
     relatedPosts: state => (category) => {
         const posts = []
         for (let i = 0; i < state.posts.length; i++) {
@@ -53,9 +54,7 @@ export const mutations = {
     }
 }
 
-// ミューテーションをコミット（非同期）
 export const actions = {
-    // 記事データを非同期で取得
     async getPosts({ commit }) {
         await client.getEntries({
             content_type: process.env.CTF_BLOG_POST_TYPE_ID,

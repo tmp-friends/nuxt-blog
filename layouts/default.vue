@@ -1,7 +1,7 @@
 <template>
 	<v-app>
 		<my-header />
-		<v-main>
+		<v-main style="padding: 112px 16px 0">
 			<nuxt />
 		</v-main>
 	</v-app>

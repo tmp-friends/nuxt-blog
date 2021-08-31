@@ -3,6 +3,7 @@
         <v-navigation-drawer
             v-model="drawer"
             app
+            temporary
         >
             <v-list
                 dense
@@ -24,7 +25,10 @@
             </v-list>
         </v-navigation-drawer>
         
-        <v-app-bar app>
+        <v-app-bar
+            app
+            elevate-on-scroll
+        >
             <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
             <nuxt-link
                 to="/"
@@ -47,31 +51,68 @@
             <div v-else>
                 <search-form />
             </div>
+
+            <template v-slot:extension>
+                <v-tabs
+                    grow
+
+                >
+                    <v-tabs-slider color="black"></v-tabs-slider>
+
+                    <v-tab
+                        v-for="category in categories"
+                        :key="category.title"
+                        :to="category.link"
+                    >
+                        {{ category.title }}
+                    </v-tab>
+                </v-tabs>
+            </template>
         </v-app-bar>
     </div>
 </template>
 
 <script>
 import {
-    mdiViewDashboard,
-    mdiMagnify
+    mdiHome,
+    mdiApplication,
+    mdiApplicationCog,
+    mdiDraw,
+    mdiDrawing,
+    mdiApplicationSettings,
+    mdiTagOutline,
+    mdiMagnify,
 } from '@mdi/js'
 
 import searchForm from '../ui/searchForm.vue'
 export default {
     components: { searchForm },
     data: () => ({
-        drawer: null,
+        drawer: false,
         siteName: process.env.SITE_NAME,
         items: [
-            { title: 'Index', icon: mdiViewDashboard, link: '/' },
+            { title: 'Home', icon: mdiHome, link: '/' },
+            { title: 'Frontend', icon: mdiApplication, link: '/categories/frontend' },
+            { title: 'Backend', icon: mdiApplicationCog, link: '/categories/backend' },
+            { title: 'Illust', icon: mdiDraw, link: '/categories/illustration' },
+            { title: 'Design', icon: mdiDrawing, link: '/categories/design' },
+            { title: 'Infra', icon: mdiApplicationSettings, link: '/categories/infrastructure' },
+            { title: 'Tag', icon: mdiTagOutline, link: '/tags' }
         ],
         searchIcon: mdiMagnify,
+        categories: [
+            { title: 'All', link: '/' },
+            { title: 'Frontend', link: '/categories/frontend' },
+            { title: 'Backend', link: '/categories/backend' },
+            { title: 'Illust', link: '/categories/illustration' },
+            { title: 'Design', link: '/categories/design' },
+            { title: 'Infra', link: '/categories/infrastructure' },
+        ]
     })
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 a.site-name {
     text-decoration: none;
     color: rgba(0, 0, 0, 0.87);

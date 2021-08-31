@@ -1,31 +1,31 @@
 <template>
-    <div>
+    <div class="wrapper">
         <breadcrumbs :add-items="addBreads" />
         <v-container>
-            <div class="wrapper">
-                <template v-if="currentPost">
+            <template v-if="currentPost">
+                <h1 class="page_title">
                     {{ currentPost.fields.title }}
-                    <v-img
-                        :src="setEyeCatch(currentPost).url"
-                        :alt="setEyeCatch(currentPost).title"
-                        :aspect-ratio="16 / 9"
-                        max-width="600"
-                        class="mx-auto"
-                    >
-                    </v-img>
-                    {{ currentPost.fields.publishDate }}<br />
-                    <div class="wrapper_content" v-html="$md.render(currentPost.fields.body)"></div>
-                </template>
-            
-                <template v-else>
-                    お探しの記事は見つかりませんでした
-                </template>
+                </h1>
+                <v-img
+                    :src="setEyeCatch(currentPost).url"
+                    :alt="setEyeCatch(currentPost).title"
+                    :aspect-ratio="16 / 9"
+                    max-width="600"
+                    class="mx-auto"
+                >
+                </v-img>
+                {{ currentPost.fields.publishDate }}<br />
+                <div class="wrapper_content" v-html="$md.render(currentPost.fields.body)"></div>
+            </template>
+        
+            <template v-else>
+                お探しの記事は見つかりませんでした
+            </template>
 
-                <client-only>
-                    <share-btns :page-title="currentPost.fields.title" />
-                    <follow-btns />
-                </client-only>
-            </div>
+            <client-only>
+                <share-btns :page-title="currentPost.fields.title" />
+                <follow-btns />
+            </client-only>
         </v-container>
     </div>
 </template>
@@ -72,12 +72,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$h1-font-size: 28px;
-$h2-font-size: 20px;
+$h1-font-size: 24px;
+$h2-font-size: 18px;
+
+h1 {
+    padding-bottom: 10px;
+}
 
 .wrapper {
-    max-width: 600px;
-    margin: 0 auto;
+	max-width: 800px;
+	margin: 0 auto;
 }
 
 /* v-htmlによってレンダリングされるhtmlにはスコープ付きcssが使えない */
@@ -85,16 +89,27 @@ $h2-font-size: 20px;
     img {
         width: 100%;
     }
-    h1 {
+
+    // SEOの観点からwrapper_content内に<h1>タグを使わない
+    h2 {
         font-size: $h1-font-size;
         border-bottom: 1px solid #b1b1b1;
-        margin: 10px 0;
-    }
-    h2 {
-        font-size: $h2-font-size;
+        margin: 0 0 15px;
+        padding: 20px 0 5px;
     }
     h3 {
+        font-size: $h2-font-size;
+        padding: 10px 0;
+    }
+    h4 {
         font-size: $font-size-root;
+    }
+
+    a {
+        word-break: break-all;
+    }
+    pre {
+        margin: 15px 0;
     }
 }
 </style>
