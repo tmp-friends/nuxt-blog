@@ -6,6 +6,28 @@
                 <h1 class="page_title">
                     {{ currentPost.fields.title }}
                 </h1>
+                <template v-if="currentPost.fields.tags">
+                    <div class="">
+                        <v-chip
+                            v-for="(tag) in currentPost.fields.tags"
+                            :key="tag.sys.id"
+                            :to="linkTo('tags', tag)"
+                            small
+                            label
+                            outlined
+                            class="mb-5 mr-3"
+                        >
+                            <v-icon
+                                left
+                                size="18"
+                                color="grey"
+                            >
+                                {{ tagLabelIcon }}
+                            </v-icon>
+                            {{ tag.fields.name }}
+                        </v-chip>
+                    </div>
+                </template>
                 <v-img
                     :src="setEyeCatch(currentPost).url"
                     :alt="setEyeCatch(currentPost).title"
@@ -14,7 +36,9 @@
                     class="mx-auto"
                 >
                 </v-img>
-                {{ currentPost.fields.publishDate }}<br />
+                <div class="publishdate_area">
+                    {{ currentPost.fields.publishDate.substr( 0, 10 ).replace(/-/g, '/') }}
+                </div>
                 <div class="wrapper_content" v-html="$md.render(currentPost.fields.body)"></div>
             </template>
         
@@ -24,7 +48,6 @@
 
             <client-only>
                 <share-btns :page-title="currentPost.fields.title" />
-                <follow-btns />
             </client-only>
         </v-container>
     </div>
@@ -32,22 +55,25 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { mdiFolderOutline, mdiLabel } from '@mdi/js';
 import Prism from '~/plugins/prism';
 
 import shareBtns from '~/components/ui/shareBtns'
-import followBtns from '~/components/ui/followBtns'
 
 export default {
     components: {
-        shareBtns, followBtns
+        shareBtns
     },
+    data: () => ({
+        tagLabelIcon: mdiLabel
+    }),
     computed: {
         ...mapGetters(['setEyeCatch', 'linkTo']),
 
         addBreads() {
             return [
                 {
-                    icon: 'mdi-folder-outline',
+                    icon: mdiFolderOutline,
                     text: this.category.fields.name,
                     to: this.linkTo('categories', this.category)
                 }
@@ -84,32 +110,92 @@ h1 {
 	margin: 0 auto;
 }
 
+.publishdate_area {
+    text-align: right;
+    padding-top: 10px;
+}
+
 /* v-htmlによってレンダリングされるhtmlにはスコープ付きcssが使えない */
 ::v-deep .wrapper_content {
-    img {
-        width: 100%;
-    }
+    margin-bottom: 40px;
+
+    word-break: break-all; // 折り返し設定
 
     // SEOの観点からwrapper_content内に<h1>タグを使わない
     h2 {
         font-size: $h1-font-size;
         border-bottom: 1px solid #b1b1b1;
-        margin: 0 0 15px;
-        padding: 20px 0 5px;
+        margin: 0 0 20px;
+        padding: 40px 0 5px;
     }
     h3 {
         font-size: $h2-font-size;
-        padding: 10px 0;
+        padding: 20px 0;
     }
     h4 {
         font-size: $font-size-root;
+        padding: 10px 0;
     }
 
-    a {
-        word-break: break-all;
+    img {
+        width: 100%;
     }
+
     pre {
-        margin: 15px 0;
+        margin: 16px 0;
+    }
+
+    blockquote {
+        border-left: 5px solid #ddd;
+        color: rgba(0, 0, 0, 0.7);
+        padding: 10px;
+        margin-bottom: 16px;
+        p {
+            margin-bottom: 0;
+        }
+    }
+
+    table {
+        margin: 20px auto;
+        border: 1px solid #b1b1b1;
+        border-radius: 8px;
+        th, td {
+            padding: 5px 10px;
+        }
+        th {
+            border-bottom: 1px solid #b1b1b1;
+        }
+    }
+    thead {
+        border: 1px solid #b1b1b1;
+    }
+    @media screen and (max-width: 600px){
+        table {
+            font-size: 11px;
+            th, td {
+                padding: 10px 3px;
+            }
+        }
+    }
+
+    .table-of-contents {
+        padding: 15px 20px;
+        background-color: #f7f9f9;
+        .toc-container-header {
+            font-weight: 700;
+        }
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        li {
+            padding:15px 0 0px;
+            border-bottom: 1px dotted #b1b1b1;
+        }
+        a {
+            color: rgba(0, 0, 0, 0.7);
+            text-decoration: none;
+        }
     }
 }
 </style>

@@ -91,7 +91,14 @@ export default {
 
   markdownit: {
     injected: true,
-    breaks: true
+    breaks: true,
+    typography: true,
+    use: [
+      ['markdown-it-table-of-contents', {
+        includeLevel: [2],
+        containerHeaderHtml: '<div class="toc-container-header">目次</div>'
+      }]
+    ]
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

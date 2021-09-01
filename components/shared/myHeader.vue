@@ -27,7 +27,7 @@
         
         <v-app-bar
             app
-            elevate-on-scroll
+            hide-on-scroll
         >
             <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
             <nuxt-link
@@ -55,7 +55,6 @@
             <template v-slot:extension>
                 <v-tabs
                     grow
-
                 >
                     <v-tabs-slider color="black"></v-tabs-slider>
 
