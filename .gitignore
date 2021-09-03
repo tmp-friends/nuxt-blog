@@ -71,6 +71,7 @@ typings/
 # Nuxt generate
 dist
 public
+.firebase
 
 # vuepress build output
 .vuepress/dist

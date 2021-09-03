@@ -56,6 +56,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import { mdiFolderOutline, mdiLabel } from '@mdi/js';
+import Meta from '~/assets/mixins/meta';
 import Prism from '~/plugins/prism';
 
 import shareBtns from '~/components/ui/shareBtns'
@@ -64,13 +65,12 @@ export default {
     components: {
         shareBtns
     },
+    mixins: [Meta],
     data: () => ({
         tagLabelIcon: mdiLabel
     }),
     computed: {
         ...mapGetters(['setEyeCatch', 'linkTo']),
-
-
         addBreads() {
             return [
                 {
@@ -83,23 +83,6 @@ export default {
     },
     mounted() {
         Prism.highlightAll()
-    },
-    head() {
-        return {
-            title: this.currentPost.fields.title + ' - ' + process.env.SITE_NAME,
-            meta: [
-                { hid: 'description', name: 'description', content: this.currentPost.fields.description },
-                { hid: 'og:site_name', property: 'og:site_name', content: this.currentPost.fields.title },
-                { hid: 'og:type', property: 'og:type', content: 'website' },
-                { hid: 'og:url', property: 'og:url', content: process.env.BASE_URL + this.$route.path },
-                { hid: 'og:title', property: 'og:title', content: this.currentPost.fields.title },
-                { hid: 'og:description', property: 'og:description', content: this.currentPost.fields.description },
-                { hid: 'og:image', property: 'og:image', content: this.setEyeCatch(this.currentPost).url },
-                { hid: 'twitter:card', name: 'twitter:card', content: "summary_large_image" },
-                { hid: 'twitter:site', name: 'twitter:site', content: process.env.TWITTER_ACCOUNT }
-
-            ]
-        }
     },
     async asyncData({ payload, store, params, error }){
         const currentPost = payload || await store.state.posts.find(post => post.fields.slug === params.slug)
