@@ -56,6 +56,6 @@ export default {
 
 <style scoped>
 .v-application ul, .v-application ol {
-    padding: 20px 12px 0;
+    padding: 4px 12px 0;
 }
 </style>
