@@ -134,7 +134,7 @@ a.site-name {
     }
 }
 
-::v-deep .primary--text {
-    color: rgba(0, 0, 0, 0.87) !important;
+.v-tab.v-tab {
+    color: rgba(0, 0, 0, 0.87);
 }
 </style>
