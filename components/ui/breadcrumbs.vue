@@ -47,7 +47,7 @@ export default {
         },
         iconColor() {
             return (item) => {
-                return item.iconColor || 'primary'
+                return item.iconColor || 'accent'
             }
         }
     }

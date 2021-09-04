@@ -2,6 +2,7 @@
     <div>
         <v-form
             @submit.prevent="submit"
+            class="ma-3"
         >
             <v-text-field
                 ref="searchForm"

@@ -28,6 +28,7 @@
         <v-app-bar
             app
             hide-on-scroll
+            color="primary"
         >
             <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
             <nuxt-link
@@ -37,31 +38,36 @@
                 {{ siteName }}
             </nuxt-link>
             <v-spacer />
-            <div
-                v-if="$vuetify.breakpoint.xs"
-            >
+            <div v-if="$vuetify.breakpoint.xs">
                 <v-btn
                     icon
-                    text
                     to="/search"
                 >
                     <v-icon>{{ searchIcon }}</v-icon>
                 </v-btn>
             </div>
-            <div v-else>
+            <div v-else class="header_search_area">
+                <v-btn
+                    icon
+                    to="/search"
+                >
+                    <v-icon>{{ searchIcon }}</v-icon>
+                </v-btn>
                 <search-form />
             </div>
 
             <template v-slot:extension>
                 <v-tabs
                     grow
+                    show-arrows
                 >
-                    <v-tabs-slider color="black"></v-tabs-slider>
+                    <v-tabs-slider color="accent"></v-tabs-slider>
 
                     <v-tab
                         v-for="category in categories"
                         :key="category.title"
                         :to="category.link"
+                        :href="'#tab-' + category.title"
                     >
                         {{ category.title }}
                     </v-tab>
@@ -120,5 +126,15 @@ a.site-name {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.header_search_area {
+    .v-btn {
+        float: left;
+    }
+}
+
+::v-deep .primary--text {
+    color: rgba(0, 0, 0, 0.87) !important;
 }
 </style>

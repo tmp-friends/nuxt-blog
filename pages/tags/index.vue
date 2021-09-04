@@ -53,6 +53,7 @@
                                 circle
                                 :prev-icon=menuLeftIcon
                                 :next-icon=menuRightIcon
+                                color="accent"
                             />
                         </div>
                     </v-card>
@@ -101,7 +102,7 @@ export default {
         ...mapGetters(['linkTo']),
 
         addBreads() {
-            return [{ icon: 'mdi-tag-outline', text: 'タグ一覧', to: '/tags', disabled: true, iconColor: 'grey' }]
+            return [{ icon: mdiTagOutline, text: 'タグ一覧', to: '/tags', disabled: true, iconColor: 'accent' }]
         },
         tableItems() {
             const tags = []
