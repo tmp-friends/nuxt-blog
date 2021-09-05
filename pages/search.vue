@@ -25,7 +25,7 @@
                     md="4"
                 >
                     <v-btn
-                        color="primary"
+                        color="accent"
                         @click="getPosts"
                     >
                         検索する

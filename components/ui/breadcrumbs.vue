@@ -25,7 +25,7 @@
 
 <script>
 import {
-    mdiHome,mdiChevronRight
+    mdiHomeOutline,mdiChevronRight
 } from '@mdi/js'
 
 export default {
@@ -37,7 +37,7 @@ export default {
     },
     data: () => ({
         items: [
-            { icon: mdiHome, text: 'ホーム', to: '/' }
+            { icon: mdiHomeOutline, text: 'ホーム', to: '/' }
         ],
         chevronRightIcon: mdiChevronRight,
     }),

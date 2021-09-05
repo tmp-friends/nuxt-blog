@@ -9,17 +9,33 @@
                 dense
                 nav
             >
+                <v-list-item :to="homeIcon.link" >
+                    <v-list-item-icon>
+                        <v-icon>{{ homeIcon.icon }}</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>{{ homeIcon.title }}</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+
                 <v-list-item
-                    v-for="item in items"
-                    :key="item.title"
-                    :to="item.link"
+                    v-for="category in categories"
+                    :key="category.title"
+                    :to="category.link"
+                    class="pl-8"
                 >
                     <v-list-item-icon>
-                        <v-icon>{{ item.icon }}</v-icon>
+                        <v-icon>{{ category.icon }}</v-icon>
                     </v-list-item-icon>
+                    <v-list-item-title>{{ category.title }}</v-list-item-title>
+                </v-list-item>
 
+                <v-list-item :to="tagIcon.link" >
+                    <v-list-item-icon>
+                        <v-icon>{{ tagIcon.icon }}</v-icon>
+                    </v-list-item-icon>
                     <v-list-item-content>
-                        <v-list-item-title>{{ item.title }}</v-list-item-title>
+                        <v-list-item-title>{{ tagIcon.title }}</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
             </v-list>
@@ -79,7 +95,8 @@
 
 <script>
 import {
-    mdiHome,
+    mdiHomeOutline,
+    mdiViewDashboard,
     mdiApplication,
     mdiApplicationCog,
     mdiDraw,
@@ -95,23 +112,16 @@ export default {
     data: () => ({
         drawer: false,
         siteName: process.env.SITE_NAME,
-        items: [
-            { title: 'Home', icon: mdiHome, link: '/' },
-            { title: 'Frontend', icon: mdiApplication, link: '/categories/frontend' },
-            { title: 'Backend', icon: mdiApplicationCog, link: '/categories/backend' },
-            { title: 'Illust', icon: mdiDraw, link: '/categories/illustration' },
-            { title: 'Design', icon: mdiDrawing, link: '/categories/design' },
-            { title: 'Infra', icon: mdiApplicationSettings, link: '/categories/infrastructure' },
-            { title: 'Tag', icon: mdiTagOutline, link: '/tags' }
-        ],
+        homeIcon: { title: 'Home', icon: mdiHomeOutline, link: '/' },
+        tagIcon: { title: 'Tag', icon: mdiTagOutline, link: '/tags' },
         searchIcon: mdiMagnify,
         categories: [
-            { title: 'All', link: '/' },
-            { title: 'Frontend', link: '/categories/frontend' },
-            { title: 'Backend', link: '/categories/backend' },
-            { title: 'Illust', link: '/categories/illustration' },
-            { title: 'Design', link: '/categories/design' },
-            { title: 'Infra', link: '/categories/infrastructure' },
+            { title: 'All', icon: mdiViewDashboard, link: '/' },
+            { title: 'Frontend', icon: mdiApplication, link: '/categories/frontend' },
+            { title: 'Backend', icon: mdiApplicationCog, link: '/categories/backend' },
+            { title: 'Illust', icon: mdiDraw, link: '/categories/illust' },
+            { title: 'Design', icon: mdiDrawing, link: '/categories/design' },
+            { title: 'Infra', icon: mdiApplicationSettings, link: '/categories/infra' },
         ]
     })
 }
@@ -136,5 +146,9 @@ a.site-name {
 
 .v-tab.v-tab {
     color: rgba(0, 0, 0, 0.87);
+}
+
+.v-list .v-list-item--active {
+    color: initial !important;
 }
 </style>

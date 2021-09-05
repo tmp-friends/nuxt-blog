@@ -54,8 +54,8 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import { mdiFolderOutline, mdiLabel } from '@mdi/js';
+import { mapGetters } from 'vuex';
 import Meta from '~/assets/mixins/meta';
 import Prism from '~/plugins/prism';
 
