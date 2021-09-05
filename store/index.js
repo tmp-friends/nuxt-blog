@@ -15,6 +15,18 @@ export const getters = {
     linkTo: () => (name, obj) => {
         return { name: `${name}-slug`, params: { slug: obj.fields.slug } }
     },
+    categoryColor: () => {
+        return (category) => {
+            switch (category.fields.slug) {
+                case 'frontend': return '#0099ae'
+                case 'backend': return '#0048a6'
+                case 'illust': return '#d25972'
+                case 'design': return '#fdcb72'
+                case 'infra': return '#02216f'
+                default: return '#000'
+            }
+        }
+    },
     // filterでも同じことができるが、速度面からfor文で処理
     relatedPosts: state => (category) => {
         const posts = []

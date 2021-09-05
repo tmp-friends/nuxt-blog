@@ -97,19 +97,7 @@ export default {
     }),
     computed: {
         ...mapState(['posts']),
-        ...mapGetters(['setEyeCatch', 'linkTo']),
-        categoryColor() {
-            return (category) => {
-                switch (category.fields.slug) {
-                    case 'frontend': return '#0099ae'
-                    case 'backend': return '#0048a6'
-                    case 'illust': return '#d25972'
-                    case 'design': return '#fdcb72'
-                    case 'infra': return '#02216f'
-                    default: return '#000'
-                }
-            }
-        }
+        ...mapGetters(['setEyeCatch', 'linkTo', 'categoryColor']),
     },
 };
 </script>
