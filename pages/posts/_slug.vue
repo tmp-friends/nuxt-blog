@@ -196,6 +196,9 @@ h1 {
         a {
             color: rgba(0, 0, 0, 0.7);
             text-decoration: none;
+            &:hover {
+                opacity: 0.5;
+            }
         }
     }
 }

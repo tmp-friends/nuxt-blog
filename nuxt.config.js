@@ -104,7 +104,8 @@ export default {
       ['markdown-it-table-of-contents', {
         includeLevel: [2],
         containerHeaderHtml: '<div class="toc-container-header">目次</div>'
-      }]
+      }],
+      ['markdown-it-anchor']
     ]
   },
 
