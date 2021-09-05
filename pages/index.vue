@@ -3,7 +3,6 @@
         <v-row justify="center">
             <v-col cols="12" sm="11" md="10" xl="8">
                 <v-row>
-                    <!-- 【TODO】以下の表示部分(post)をTabのmodelに設定すればいける？ -->
                     <v-col
                         v-for=" (post, i) in posts"
                         :key="i"
@@ -50,9 +49,7 @@
                                     </div>
                                 </v-card-title>
                                 
-                                <!-- 【TODO】タグを一行表示にする -->
-
-                                <!-- <v-card-text>
+                                <v-card-text class="pt-0 mb-1">
                                     <template v-if="post.fields.tags">
                                         <v-chip
                                             v-for="(tag) in post.fields.tags"
@@ -61,7 +58,7 @@
                                             small
                                             label
                                             outlined
-                                            class="ma-1"
+                                            class="mr-1 mb-1"
                                         >
                                             <v-icon
                                                 left
@@ -74,10 +71,10 @@
                                         </v-chip>
                                     </template>
                                 </v-card-text>
-                                 -->
+                                
                                 <v-list-item three-line style="min-height: unset">
                                     <v-list-item-subtitle>
-                                        <div v-html="$md.render(post.fields.body)"></div>
+                                        {{ post.fields.body }}
                                     </v-list-item-subtitle>
                                 </v-list-item>
                             </v-card>
@@ -103,10 +100,13 @@ export default {
         ...mapGetters(['setEyeCatch', 'linkTo']),
         categoryColor() {
             return (category) => {
-                switch (category.fields.name) {
-                    case 'Nuxt.js': return '#236244'
-                    case 'git': return 'grey darken-3'
-                    default: return '#fff'
+                switch (category.fields.slug) {
+                    case 'frontend': return '#0099ae'
+                    case 'backend': return '#0048a6'
+                    case 'illust': return '#d25972'
+                    case 'design': return '#fdcb72'
+                    case 'infra': return '#02216f'
+                    default: return '#000'
                 }
             }
         }
@@ -116,18 +116,18 @@ export default {
 
 <style lang="scss" scoped>
 .v-card__text, .v-card__title {
-    padding: 8px 16px;
+    padding: 8px 12px;
     overflow: hidden;
 }
 
-.v-card__title_text {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
+// .v-card__text,.v-card__title_text {
+//     overflow: hidden;
+//     text-overflow: ellipsis;
+//     white-space: nowrap;
+// }
 
 .v-list-item {
-    padding: 0 16px 20px;
+    padding: 0 12px 20px;
 
     .v-list-item__subtitle {
         font-size: 12px;
