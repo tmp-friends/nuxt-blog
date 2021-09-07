@@ -55,8 +55,13 @@ export default {
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/dotenv',
-    '@nuxtjs/markdownit'
+    '@nuxtjs/markdownit',
+    '@nuxtjs/google-gtag'
   ],
+  'google-gtag': {
+    id: process.env.GAID,
+    debug: true,
+  },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
@@ -86,6 +91,8 @@ export default {
     BASE_URL: process.env.BASE_URL || 'http://localhost:3000',
     SITE_NAME: process.env.SITE_NAME,
     TWITTER_ACCOUNT: process.env.TWITTER_ACCOUNT,
+
+    GAID: process.env.GAID,
   },
 
   router: {
