@@ -140,6 +140,9 @@ h1 {
 
     img {
         width: 100%;
+        max-width: 400px;
+        display: block;
+        margin: 0 auto;
     }
 
     pre {
