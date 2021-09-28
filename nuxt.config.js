@@ -20,7 +20,7 @@ export default {
       { hid: 'og:url', property: 'og:url', content: process.env.BASE_URL },
       { hid: 'og:title', property: 'og:title', content: process.env.SITE_NAME },
       { hid: 'og:description', property: 'og:description', content: 'こめかみの備忘録【プログラミング、デザイン、イラスト】' },
-      { hid: 'og:image', property: 'og:image', content: `${process.env.BASE_URL}/assets/images/defaultEyeCatch.jpg` },
+      { hid: 'og:image', property: 'og:image', content: 'https://res.cloudinary.com/komekami/image/upload/v1632822782/defaultEyeCatch_jmalig.jpg' },
       { hid: 'twitter:card', name: 'twitter:card', content: "summary_large_image" },
       { hid: 'twitter:site', name: 'twitter:site', content: process.env.TWITTER_ACCOUNT },
 
