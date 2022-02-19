@@ -41,7 +41,7 @@
                 </div>
                 <div class="wrapper_content" v-html="$md.render(currentPost.fields.body)"></div>
             </template>
-        
+
             <template v-else>
                 お探しの記事は見つかりませんでした
             </template>
@@ -87,9 +87,20 @@ export default {
     async asyncData({ payload, store, params, error }){
         const currentPost = payload || await store.state.posts.find(post => post.fields.slug === params.slug)
         if (currentPost) {
-            return {
-                currentPost,
-                category: currentPost.fields.category
+            // OGP画像動作確認OK
+            // TODO:別関数に切り出す
+            if (!!currentPost.fields.image && !!currentPost.fields.image.fields) {
+                return {
+                    currentPost,
+                    category: currentPost.fields.category,
+                    ogpImageUrl: `https:${currentPost.fields.image.fields.file.url}`
+                }
+            } else {
+                return {
+                    currentPost,
+                    category: currentPost.fields.category,
+                    ogpImageUrl: 'https://res.cloudinary.com/komekami/image/upload/v1632822782/defaultEyeCatch_jmalig.jpg'
+                }
             }
         } else {
             return error({ statusCode: 400 })
